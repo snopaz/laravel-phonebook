@@ -19,7 +19,7 @@ class CreateEntrepriseTable extends Migration
 	    $table->string('rue');
 	    $table->char('code_postal', 5);
 	    $table->string('ville');
-	    $table->string('telephone');
+	    $table->string('telephone')->nullable();
 	    $table->string('email');
             $table->timestamps();
         });

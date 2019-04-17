@@ -21,7 +21,7 @@ class CreateCollaborateurTable extends Migration
 	    $table->string('rue');
 	    $table->char('code_postal', 5);
 	    $table->string('ville');
-	    $table->string('telephone');
+	    $table->string('telephone')->nullable();
 	    $table->string('email');
 	    $table->unsignedBigInteger('entreprise_id');
 	    $table->foreign('entreprise_id')->references('id')->on('entreprise');
