@@ -6,6 +6,8 @@
      	  <div class="col-md-8">
 	       <div class="card">
 			   <div class="card-header text-center">{{$entreprise->nom}}</div>
+			   	<br>
+			   <div class="well">
 					<ul>
 						<li>{{$entreprise->rue}}</li>
 						<li>{{$entreprise->code_postal}}</li>
@@ -16,10 +18,15 @@
 						<li>{{$entreprise->email}}</li>
 					</ul>
 				   <div class="text-center">
-					   <a href="/entreprise/update/{{$entreprise->id}}" class="btn btn-primary">Editer</a>
-					   <a href="/entreprise/delete/{{$entreprise->id}}" class="btn btn-danger">Supprimer</a>
-			   		</div>
+					   @if(Auth::user()->getAuthIdentifier() == 1 || Auth::user()->getAuthIdentifier() == 2)
+					   	<a href="/entreprise/update/{{$entreprise->id}}" class="btn btn-primary">Editer</a>
+					   @endif
+					   @if(Auth::user()->getAuthIdentifier() == 1)
+					   		<a href="/entreprise/delete/{{$entreprise->id}}" class="btn btn-danger">Supprimer</a>
+					   @endif
+				   </div>
 			   		<br>
+				</div>
 		       </div>
 			  <br>
 		  </div>

@@ -9,7 +9,7 @@ class EntreprisesController extends Controller
 {
     public function index()
     {
-	    $entreprises = Entreprise::all();
+	    $entreprises = Entreprise::paginate(4);
         return view('entreprise.index')->with('entreprises', $entreprises);
     }
 
@@ -88,5 +88,17 @@ class EntreprisesController extends Controller
         $entreprise->delete();
 
         return redirect('/entreprise');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $entreprises = Entreprise::where('nom', 'LIKE', '%'.$search.'%')
+            ->orWhere('ville', 'LIKE', '%'.$search.'%')
+            ->orWhere('email', 'LIKE', '%'.$search.'%')
+            ->paginate(4);
+
+        return view('entreprise.index')->with('entreprises', $entreprises);
+
     }
 }

@@ -3,6 +3,20 @@
 @section('content')
 <div class="container">
 	<h1>Entreprises</h1>
+	<div>
+	@if(Auth::user()->getAuthIdentifier() == 1 || Auth::user()->getAuthIdentifier() == 2)
+		<div class="row justify-content-center">
+			<a href="/entreprise/create" class="btn btn-primary">Ajouter une entreprise</a>
+		</div>
+		<br>
+	@endif
+	<form action="/entreprise" method="GET">
+		<div class="input-group row justify-content-center">
+			<input type="search" name="search" class="col-5 form-control">
+			<button type="submit" class="btn btn-primary col-2">Rechercher</button>
+		</div>
+	</form>
+	<br>
 	@if(count($entreprises) >= 1)
 		@foreach($entreprises as $entreprise)
 			<div class="row justify-content-center">
@@ -25,9 +39,15 @@
 					</div>
 				</div>
 			</div>
+			<br>
 		@endforeach
+		<div class="row justify-content-center">
+			{{ $entreprises->links() }}
+		</div>
 	@else
-		<p>Il n'y a pas d'entreprises dans la base de données</p>
+		<div class="well text-center">
+			<p>Il n'y a pas d'entreprises dans la base de données</p>
+		</div>
 	@endif
 </div>
 @endsection

@@ -14,7 +14,7 @@ class CreateCollaborateurTable extends Migration
     public function up()
     {
         Schema::create('collaborateur', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        $table->bigIncrements('id');
 	    $table->string('civilite');
 	    $table->string('nom');
 	    $table->string('prenom');
@@ -25,7 +25,7 @@ class CreateCollaborateurTable extends Migration
 	    $table->string('email');
 	    $table->unsignedBigInteger('entreprise_id');
 	    $table->foreign('entreprise_id')->references('id')->on('entreprise');
-            $table->timestamps();
+        $table->timestamps();
         });
     }
 

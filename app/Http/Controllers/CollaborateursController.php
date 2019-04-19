@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\Collaborateur;
 use App\Entreprise;
 use App\Http\Controllers\Controller;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CollaborateursController extends Controller
 {
 
     public function index()
     {
-        $collaborateurs = Collaborateur::all();
+        $collaborateurs = Collaborateur::paginate(4);
         return view('collaborateur.index')->with('collaborateurs', $collaborateurs);
     }
 
@@ -49,11 +51,6 @@ class CollaborateursController extends Controller
         $collaborateur->save();
 
         return redirect('/collaborateur');
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit($id)
@@ -104,5 +101,18 @@ class CollaborateursController extends Controller
         $collaborateur->delete();
 
         return redirect('/collaborateur');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $collaborateurs = Collaborateur::whereHas('entreprise', function($query) use($search) {
+            $query->where('nom', 'LIKE', '%'.$search.'%');})
+            ->orWhere('nom', 'LIKE', '%'.$search.'%')
+            ->orWhere('prenom', 'LIKE', '%'.$search.'%')
+            ->orWhere('telephone', 'LIKE', '%'.$search.'%')
+            ->paginate(4);
+
+        return view('collaborateur.index')->with('collaborateurs', $collaborateurs);
     }
 }
