@@ -28,8 +28,7 @@
                 <input class="form-control" type="text" name="ville" value="{{$collaborateur->ville}}" required>
                 <br>
                 <label>Téléphone</label>
-                <!-- Appliquer une condition de format de numéro de téléphone Francais ici -->
-                <input class="form-control" type="number" name="telephone" value="{{$collaborateur->telephone}}">
+                <input class="form-control" type="tel" name="telephone" value="{{$collaborateur->telephone}}">
                 <br>
                 <label>Email</label>
                 <input class="form-control" type="email" name="email" value="{{$collaborateur->email}}" required>
